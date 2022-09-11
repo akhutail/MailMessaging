@@ -1,4 +1,4 @@
-package io.akhutail;
+package io.akhutail.mail;
 
 import java.io.File;
 
