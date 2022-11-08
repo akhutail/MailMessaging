@@ -1,12 +1,4 @@
 spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-id: Iv1.48afd366d031475c
-            client-secret: 0094e73785ec3f4ac3e04ad7b18c77a5cbc740d4
-
 
   data:
     cassandra:
