@@ -15,6 +15,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MailIcon from '@mui/icons-material/Mail';
 import LeftPanel from '../components/LeftPanel'
 import MailList from '../components/MailList'
+import {useState, setState, useEffect} from 'react';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -66,6 +67,8 @@ export default function Mail() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const [selectedFolder, setSelectedFolder]  = useState("Inbox");
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -73,6 +76,11 @@ export default function Mail() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleFolderClick = (label) => {
+    setSelectedFolder(label);
+    console.log(label);
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -113,11 +121,11 @@ export default function Mail() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <LeftPanel></LeftPanel>
+        <LeftPanel onClickFolderName={handleFolderClick} />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <MailList/>
+        <MailList folder={selectedFolder}/>
       </Main>
     </Box>
   );

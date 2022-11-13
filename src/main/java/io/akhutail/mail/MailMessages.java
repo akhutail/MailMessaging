@@ -39,9 +39,9 @@ public class MailMessages {
 		folderRepository.save(new Folder("akhutail", "Important", "black"));
 		folderRepository.save(new Folder("akhutail", "Sent", "orange"));
 
-		emailsByUserFolderRepo.save(new EmailsByUserFolder("akhutail", "important", "123123", "akhutail2", "subject here", false ));
-		emailsByUserFolderRepo.save(new EmailsByUserFolder("akhutail", "important", "123", "akhutail2", "subject here", false ));
-		emailsByUserFolderRepo.save(new EmailsByUserFolder("akhutail", "importants", "321", "akhutail2", "subject here", false ));
+		emailsByUserFolderRepo.save(new EmailsByUserFolder("akhutail", "Important", "123123", "sender1", "subject here1", false ));
+		emailsByUserFolderRepo.save(new EmailsByUserFolder("akhutail", "Inbox", "123", "sender2", "subjec2", true ));
+		emailsByUserFolderRepo.save(new EmailsByUserFolder("akhutail", "Sent", "321", "sender3", "subject3e", false ));
 
 	}	
 }

@@ -6,26 +6,28 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
 import React, { useEffect, useState } from 'react';
-import getEmailsByUser from '../util/api';
+import {getEmailsByFolder} from '../util/api';
 
-export default function MailList() {
-    const [mailListState, setMailListState] = useState([]);//
+export default function MailList({folder}) {
+    const [mails, setMails] = useState([]);//
     useEffect(() => {
-        getEmailsByUser.then((data) => {
-            setMailListState(data);
+        getEmailsByFolder(folder).then((data) => {
+            setMails(data);
         })
-    }, []);
+    }, [folder]);
+
     return (
     <Paper sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         <nav aria-label="main mailbox folders">
         <List>
-            {mailListState.map((elem, index) => (
+            {mails.map((elem, index) => (
             <ListItem disablePadding key={index}>
             <ListItemButton>
                 <ListItemIcon>
                 <MailIcon />
                 </ListItemIcon>
-                <ListItemText primary={elem.label} />
+                <ListItemText primary={elem.from} />
+                <ListItemText primary={elem.subject} />
             </ListItemButton>
             </ListItem>
             ))}

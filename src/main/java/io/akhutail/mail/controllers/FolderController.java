@@ -23,9 +23,10 @@ public class FolderController {
     
     @GetMapping(value = "/folders")
     
-    public List<Folder> getHomePage(@RequestParam String userId){//@RequestParam(value="userId") String userId
+    public List<Folder> getHomePage(){//@RequestParam(value="userId") String userId
         
         
+        String userId = "akhutail";
         List<Folder> userFolders = folderRepository.findAllById(userId);
 
         return userFolders;

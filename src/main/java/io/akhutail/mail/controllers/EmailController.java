@@ -31,4 +31,17 @@ public class EmailController {
 
         return null;
     }
+
+    @GetMapping(value = "/emails")
+    
+    public List<EmailsByUserFolder> getEmail(@RequestParam String mailId){//@RequestParam(value="userId") String userId
+    String userId = "akhutail";
+     
+        if(userId != null && mailId != null){
+            List<EmailsByUserFolder>  emails = emailsByFolderRepo.findAllByUserIdAndLabel(userId, mailId);
+            return emails;
+        }
+
+        return null;
+    }
 }

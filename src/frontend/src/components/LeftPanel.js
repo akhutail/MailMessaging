@@ -5,11 +5,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import getFolders from '../util/api';
+import {getFolders} from '../util/api';
 
 import React, { useEffect, useState } from 'react';
 
-export default function LeftPanel() {
+export default function LeftPanel({onClickFolderName}) {
   const [mailListState, setMailListState] = useState([]);//
     useEffect(() => {
         getFolders().then((data) => {
@@ -22,7 +22,7 @@ export default function LeftPanel() {
         <List>
             {mailListState.map((elem, index) => (
             <ListItem disablePadding key={index}>
-            <ListItemButton>
+            <ListItemButton onClick={() => onClickFolderName(elem.label)}>
                 <ListItemIcon>
                 <MailIcon />
                 </ListItemIcon>
