@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import React, { useEffect, useState } from 'react';
 import {getEmailsByFolder} from '../util/api';
 
-export default function MailList({folder}) {
+export default function MailList({folder, handleViewMail}) {
     const [mails, setMails] = useState([]);//
     useEffect(() => {
         getEmailsByFolder(folder).then((data) => {
@@ -22,7 +22,7 @@ export default function MailList({folder}) {
         <List>
             {mails.map((elem, index) => (
             <ListItem disablePadding key={index}>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleViewMail(elem.id)}>
                 <ListItemIcon>
                 <MailIcon />
                 </ListItemIcon>

@@ -35,3 +35,22 @@ export const getEmailsByFolder = (label) => {
     
     return data;
 }
+
+export const getEmail = (id) => {
+
+    const data = fetch(`http://localhost:8080/email?mailId=${id}`)
+        .then((response) => {
+            if(response.ok){
+                return response.json();
+            }
+            else {
+                throw Error(data.status)
+            }
+        })
+        .then((data) => {
+            //console.log(data);
+            return data;
+        });
+    
+    return data;
+}

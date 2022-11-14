@@ -7,4 +7,5 @@ import org.springframework.data.cassandra.repository.MapIdCassandraRepository;
 
 public interface EmailsRepo extends MapIdCassandraRepository<EmailsById>{
     List<EmailsById> findAllById(UUID id);
+    EmailsById findById(UUID id);
 }

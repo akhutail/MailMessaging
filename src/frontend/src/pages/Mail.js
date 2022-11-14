@@ -16,6 +16,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import LeftPanel from '../components/LeftPanel'
 import MailList from '../components/MailList'
 import {useState, setState, useEffect} from 'react';
+import ViewMail from '../components/ViewMail';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -68,6 +69,8 @@ export default function Mail() {
   const [open, setOpen] = React.useState(true);
 
   const [selectedFolder, setSelectedFolder]  = useState("Inbox");
+  const [view, setView]  = useState();
+  const [viewName, setViewName] = useState("mailList");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -79,8 +82,22 @@ export default function Mail() {
 
   const handleFolderClick = (label) => {
     setSelectedFolder(label);
-    console.log(label);
+    //console.log(label);
   }
+
+  const handleViewMail = (id) => {
+    setView(<ViewMail mailId={id}/>);
+    console.log(id);
+  }
+
+  useEffect(() => {
+    if(viewName === "mailList") {
+      setView(<MailList folder={selectedFolder} handleViewMail={handleViewMail}/>);
+    }
+    else if(viewName === "singleMail"){
+      setView(<ViewMail />);
+    }
+  }, [viewName, selectedFolder]);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -125,7 +142,7 @@ export default function Mail() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <MailList folder={selectedFolder}/>
+        {view}
       </Main>
     </Box>
   );

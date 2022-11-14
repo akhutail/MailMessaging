@@ -37,12 +37,12 @@ public class EmailController {
 
     @GetMapping(value = "/email")
     
-    public List<EmailsById> getEmail(@RequestParam UUID mailId){//@RequestParam(value="userId") String userId
+    public EmailsById getEmail(@RequestParam UUID mailId){//@RequestParam(value="userId") String userId
     String userId = "akhutail";
      
         if(userId != null && mailId != null){
-            List<EmailsById>  emails = emailsRepo.findAllById(mailId);
-            return emails;
+            EmailsById email = emailsRepo.findById(mailId);
+            return email;
         }
 
         return null;
