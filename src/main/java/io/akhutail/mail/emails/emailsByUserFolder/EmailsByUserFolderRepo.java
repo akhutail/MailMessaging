@@ -1,4 +1,4 @@
-package io.akhutail.mail.emails;
+package io.akhutail.mail.emails.emailsByUserFolder;
 
 import java.util.List;
 

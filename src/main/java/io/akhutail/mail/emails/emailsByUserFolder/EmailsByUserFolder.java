@@ -1,4 +1,6 @@
-package io.akhutail.mail.emails;
+package io.akhutail.mail.emails.emailsByUserFolder;
+
+import java.util.UUID;
 
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.CassandraType;
@@ -18,7 +20,8 @@ public class EmailsByUserFolder {
     private String label;
 
     @PrimaryKeyColumn(name = "id", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
-    private String id;
+    @CassandraType(type = CassandraType.Name.TIMEUUID)
+    private UUID id;
     
     @CassandraType(type = Name.TEXT)
     private String from;
@@ -29,7 +32,7 @@ public class EmailsByUserFolder {
     @CassandraType(type = Name.BOOLEAN)
     private Boolean isRead;
 
-    public EmailsByUserFolder(String userId, String label, String id, String from, String subject, Boolean isRead) {
+    public EmailsByUserFolder(String userId, String label, UUID id, String from, String subject, Boolean isRead) {
         this.userId = userId;
         this.label = label;
         this.id = id;

@@ -65,7 +65,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function Mail() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const [selectedFolder, setSelectedFolder]  = useState("Inbox");
 

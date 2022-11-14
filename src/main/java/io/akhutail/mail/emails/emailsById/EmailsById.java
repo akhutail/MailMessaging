@@ -33,6 +33,14 @@ public class EmailsById {
         return id;
     }
 
+    public EmailsById(UUID id, String from, List<String> to, String subject, String body) {
+        this.id = id;
+        this.from = from;
+        this.to = to;
+        this.subject = subject;
+        this.body = body;
+    }
+
     public void setId(UUID id) {
         this.id = id;
     }
