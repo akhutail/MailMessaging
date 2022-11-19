@@ -1,22 +1,21 @@
-import * as React from 'react';
-import { styled, useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'; 
-import MailIcon from '@mui/icons-material/Mail';
-import LeftPanel from '../components/LeftPanel'
-import MailList from '../components/MailList'
-import {useState, setState, useEffect} from 'react';
-import ViewMail from '../components/ViewMail';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import MenuIcon from '@mui/icons-material/Menu';
+import MuiAppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import { styled, useTheme } from '@mui/material/styles';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import LeftPanel from '../components/LeftPanel';
+import MailList from '../components/MailList';
+import ViewMail from '../components/ViewMail/ViewMail';
+import WriteMail from '../components/WriteMail/WriteMail';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -68,9 +67,7 @@ export default function Mail() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
-  const [selectedFolder, setSelectedFolder]  = useState("Inbox");
   const [view, setView]  = useState();
-  const [viewName, setViewName] = useState("mailList");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -81,8 +78,8 @@ export default function Mail() {
   };
 
   const handleFolderClick = (label) => {
-    setSelectedFolder(label);
-    //console.log(label);
+    //setSelectedFolder(label);
+    setView(<MailList folder={label} handleViewMail={handleViewMail}/>);
   }
 
   const handleViewMail = (id) => {
@@ -90,14 +87,20 @@ export default function Mail() {
     console.log(id);
   }
 
+  const handleAfterSent = () => {
+    setView(<MailList folder={"Sent"} handleViewMail={handleViewMail} />);
+  }
+
+  const handleCompose = () => {
+    setView(<WriteMail handleAfterSent={handleAfterSent} />);
+  }
+
+
   useEffect(() => {
-    if(viewName === "mailList") {
-      setView(<MailList folder={selectedFolder} handleViewMail={handleViewMail}/>);
-    }
-    else if(viewName === "singleMail"){
-      setView(<ViewMail />);
-    }
-  }, [viewName, selectedFolder]);
+    
+      setView(<MailList folder={'Inbox'} handleViewMail={handleViewMail}/>);
+    
+  }, []);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -138,7 +141,7 @@ export default function Mail() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <LeftPanel onClickFolderName={handleFolderClick} />
+        <LeftPanel onClickFolderName={handleFolderClick} handleCompose={handleCompose} />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

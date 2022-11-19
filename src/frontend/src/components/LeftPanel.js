@@ -8,8 +8,9 @@ import ListItemText from '@mui/material/ListItemText';
 import {getFolders} from '../util/api';
 
 import React, { useEffect, useState } from 'react';
+import { Button } from '@mui/material';
 
-export default function LeftPanel({onClickFolderName}) {
+export default function LeftPanel({onClickFolderName, handleCompose}) {
   const [mailListState, setMailListState] = useState([]);//
     useEffect(() => {
         getFolders().then((data) => {
@@ -31,6 +32,9 @@ export default function LeftPanel({onClickFolderName}) {
             </ListItem>
             ))}
         </List>
+        <Button onClick={handleCompose}>
+            Compose
+        </Button>
         </nav>
     </div>
     )

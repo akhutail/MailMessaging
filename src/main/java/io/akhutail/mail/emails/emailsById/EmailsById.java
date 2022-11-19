@@ -10,28 +10,35 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
 import org.springframework.data.cassandra.core.mapping.CassandraType.Name;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Table(value = "emails_by_id")
 public class EmailsById {
 
-    @Id @PrimaryKeyColumn(name = "id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
+    @PrimaryKeyColumn(name = "id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
     @CassandraType(type = CassandraType.Name.TIMEUUID)
     private UUID id;
 
+    @PrimaryKeyColumn(name = "from", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
     @CassandraType(type = CassandraType.Name.TEXT)
     private String from;
 
+    //@JsonProperty
     @CassandraType(type = CassandraType.Name.LIST, typeArguments = Name.TEXT)
     private List<String> to;
 
+    //@JsonProperty
     @CassandraType(type = CassandraType.Name.TEXT)
     private String subject;
 
+    //@JsonProperty
     @CassandraType(type = CassandraType.Name.TEXT)
     private String body;
 
     public UUID getId() {
         return id;
     }
+    public EmailsById(){}
 
     public EmailsById(UUID id, String from, List<String> to, String subject, String body) {
         this.id = id;
@@ -75,6 +82,11 @@ public class EmailsById {
 
     public void setBody(String body) {
         this.body = body;
+    }
+    @Override
+    public String toString() {
+        return "EmailsById [id=" + id + ", from=" + from + ", to=" + to + ", subject=" + subject + ", body=" + body
+                + "]";
     }
     
     

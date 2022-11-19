@@ -6,8 +6,15 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.datastax.oss.driver.api.core.uuid.Uuids;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.akhutail.mail.emails.emailsById.EmailsById;
 import io.akhutail.mail.emails.emailsById.EmailsRepo;
@@ -46,5 +53,31 @@ public class EmailController {
         }
 
         return null;
+    }
+
+    @PostMapping(value = "/email")
+
+    public UUID postEmail(@RequestBody String mail) {
+        UUID mailID = Uuids.timeBased();
+        //System.out.println(mail);
+        ObjectMapper objectMapper = new ObjectMapper();
+        EmailsById email;
+        try {
+            email = objectMapper.readValue(mail, EmailsById.class);
+            System.out.println(email);
+
+            email.setId(mailID);
+            email.setFrom("akhutail");
+            emailsRepo.save(email);
+        } catch (JsonMappingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (JsonProcessingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        
+        return mailID;
     }
 }
