@@ -23,12 +23,14 @@ public class EmailsByUserFolder {
     @CassandraType(type = CassandraType.Name.TIMEUUID)
     private UUID id;
     
+    @PrimaryKeyColumn(name = "from", ordinal = 3, type = PrimaryKeyType.CLUSTERED)
     @CassandraType(type = Name.TEXT)
     private String from;
 
     @CassandraType(type = Name.TEXT)
     private String subject;
 
+    @PrimaryKeyColumn(name = "is_read", ordinal = 4, type = PrimaryKeyType.CLUSTERED)
     @CassandraType(type = Name.BOOLEAN)
     private Boolean isRead;
 

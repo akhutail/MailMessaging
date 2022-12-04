@@ -10,12 +10,6 @@ export default function WriteMail({handleAfterSent}) {
     const [subject, setSubject] = useState('');
     const [text, setText] = useState('');
 
-    useEffect(() => {
-        /*postEmail(mailId).then((data) => {
-            setMailData(data);
-            console.log(data)
-        })*/
-    }, []);
 
     const handleToListChange = (value) => {
         setToList(value);
@@ -40,15 +34,16 @@ export default function WriteMail({handleAfterSent}) {
 
         <div>
             
-            <input className='field' type="text" 
+            To<input className='field' type="text" 
             onChange={(e)=>handleToListChange(e.target.value)} value={toList} /> 
 
+            Subject
             <input className='field' type="text" 
             onChange={(e)=>handleSubjectChange(e.target.value)} value={subject} /> 
 
             
         </div>
-        
+        Body
         <input className='text' type="text" 
             onChange={(e)=>handleTextChange(e.target.value)} value={text} /> 
             

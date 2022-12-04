@@ -18,7 +18,6 @@ import io.akhutail.mail.folders.FolderService;
 public class FolderController {
 
     @Autowired private FolderRepository folderRepository;
-    @Autowired private FolderService folderService;
 
     
     @GetMapping(value = "/folders")

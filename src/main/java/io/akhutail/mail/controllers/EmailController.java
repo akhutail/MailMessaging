@@ -16,6 +16,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import io.akhutail.mail.emails.emailService.emailService;
 import io.akhutail.mail.emails.emailsById.EmailsById;
 import io.akhutail.mail.emails.emailsById.EmailsRepo;
 import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolder;
@@ -26,9 +27,10 @@ import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolderRepo;
 @CrossOrigin
 public class EmailController {
 
-    @Autowired private EmailsByUserFolderRepo emailsByFolderRepo;
+    @Autowired 
+    private EmailsByUserFolderRepo emailsByFolderRepo;
     @Autowired private EmailsRepo emailsRepo;
-    
+    @Autowired private emailService emailService;
     @GetMapping(value = "/emailsByFolder")
     
     public List<EmailsByUserFolder> getEmailsByFolder(@RequestParam String folderLabel){//@RequestParam(value="userId") String userId
@@ -65,10 +67,10 @@ public class EmailController {
         try {
             email = objectMapper.readValue(mail, EmailsById.class);
             System.out.println(email);
+            //email.set
+            emailService.sendEmail(email);
 
-            email.setId(mailID);
-            email.setFrom("akhutail");
-            emailsRepo.save(email);
+            
         } catch (JsonMappingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

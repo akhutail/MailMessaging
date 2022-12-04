@@ -56,7 +56,9 @@ export const getEmail = (id) => {
 }
 
 export const postEmail = (toList, subject, body) => {
-    const mail = {"to": ["sadf","asdf"], subject, body};
+    console.log(toList);
+    //todo implement actual list of Tos
+    const mail = {"to": ["receiver1","receiver2"], subject, body};
     const response = fetch(`http://localhost:8080/email`, {
         method: 'POST',
         body: JSON.stringify(mail)
