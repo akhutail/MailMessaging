@@ -7,7 +7,7 @@ spring:
       password: ZP6.ROCk1dh6tJU1ZbZic1L4ghWuplI_wAoSrp38GLv9ZftNBkIBO0gmrKy5lNFcB.siH0aYSUXh0sD,-AUHo2XqGGWtKYdZQAhexhttUG1rGouGK-qqvnn6UhxZbwn4
       schema-action: RECREATE_DROP_UNUSED
       request:
-        timeout: 10s
+        timeout: 20s
       connection:
         connect-timeout: 10s
         init-query-timeout: 10s

@@ -19,7 +19,7 @@ public class EmailsById {
     @CassandraType(type = CassandraType.Name.TIMEUUID)
     private UUID id;
 
-    @PrimaryKeyColumn(name = "from", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
+    //@PrimaryKeyColumn(name = "from", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
     @CassandraType(type = CassandraType.Name.TEXT)
     private String from;
 

@@ -6,20 +6,31 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
 import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import {getEmailsByFolder} from '../util/api';
 
-export default function MailList({folder, handleViewMail}) {
-    const [mails, setMails] = useState([]);//
+export default function MailList() {
+    const [mails, setMails] = useState([]);
+    const {folderName} = useParams();
+    const navigate = useNavigate();
+    //console.log(folderName)
+
     useEffect(() => {
-        getEmailsByFolder(folder).then((data) => {
+        console.log()
+        getEmailsByFolder(folderName).then((data) => {
             setMails(data);
         })
-    }, [folder]);
+    }, [folderName]);
+
+    const handleViewMail = (mailId) => {
+        navigate(`/Mail/${mailId}`);
+    };
 
     return (
     <Paper sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         <nav aria-label="main mailbox folders">
-        <List>
+        {mails.length ?
+            <List>
             {mails.map((elem, index) => (
             <ListItem disablePadding key={index}>
             <ListItemButton onClick={() => handleViewMail(elem.id)}>
@@ -31,7 +42,9 @@ export default function MailList({folder, handleViewMail}) {
             </ListItemButton>
             </ListItem>
             ))}
-        </List>
+            </List> :
+            <div>Emtpy!</div>
+        }
         </nav>
     </Paper>
     );

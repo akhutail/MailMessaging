@@ -6,30 +6,39 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import {getFolders} from '../util/api';
-
+import { Outlet, Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 
-export default function LeftPanel({onClickFolderName, handleCompose}) {
-  const [mailListState, setMailListState] = useState([]);//
+export default function LeftPanel() {
+    const [mailListState, setMailListState] = useState([]);
+    const navigate = useNavigate();
+
     useEffect(() => {
         getFolders().then((data) => {
             setMailListState(data);
         })
     }, []);
+
+    const handleCompose = () => {
+        navigate("/Compose");
+    };
+
     return (
     <div sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         <nav aria-label="main mailbox folders">
         <List>
             {mailListState.map((elem, index) => (
             <ListItem disablePadding key={index}>
-            <ListItemButton onClick={() => onClickFolderName(elem.label)}>
+                <Link to={`MailList/${elem.label}`}>
+            <ListItemButton >
                 <ListItemIcon>
                 <MailIcon />
                 </ListItemIcon>
                 <ListItemText primary={elem.label} />
-            </ListItemButton>
+            </ListItemButton> </Link>
             </ListItem>
+           
             ))}
         </List>
         <Button onClick={handleCompose}>

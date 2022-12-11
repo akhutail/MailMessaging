@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import { postEmail } from '../../util/api';
 import './WriteMail.css';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export default function WriteMail({handleAfterSent}) {
     const [mailData, setMailData] = useState([]);
     const [toList, setToList] = useState('');
     const [subject, setSubject] = useState('');
     const [text, setText] = useState('');
-
+    const navigate = useNavigate();
 
     const handleToListChange = (value) => {
         setToList(value);
@@ -24,10 +25,10 @@ export default function WriteMail({handleAfterSent}) {
     };
 
     const handleSend = () => {
+        //throw new Error("error error");
         postEmail(toList, subject, text);
-        handleAfterSent();
+        navigate("/MailList/Sent")
     }
-//{mailData === undefined ? null : mailData.body    }
     return (
     <div className="container" >
         

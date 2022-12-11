@@ -16,6 +16,14 @@ import LeftPanel from '../components/LeftPanel';
 import MailList from '../components/MailList';
 import ViewMail from '../components/ViewMail/ViewMail';
 import WriteMail from '../components/WriteMail/WriteMail';
+import {
+  Outlet,
+  Link,
+  useLoaderData,
+  Form,
+  redirect,
+} from "react-router-dom";
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -67,8 +75,6 @@ export default function Mail() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
 
-  const [view, setView]  = useState();
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -76,31 +82,6 @@ export default function Mail() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-  const handleFolderClick = (label) => {
-    //setSelectedFolder(label);
-    setView(<MailList folder={label} handleViewMail={handleViewMail}/>);
-  }
-
-  const handleViewMail = (id) => {
-    setView(<ViewMail mailId={id}/>);
-    console.log(id);
-  }
-
-  const handleAfterSent = () => {
-    setView(<MailList folder={"Sent"} handleViewMail={handleViewMail} />);
-  }
-
-  const handleCompose = () => {
-    setView(<WriteMail handleAfterSent={handleAfterSent} />);
-  }
-
-
-  useEffect(() => {
-    
-      setView(<MailList folder={'Inbox'} handleViewMail={handleViewMail}/>);
-    
-  }, []);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -141,11 +122,11 @@ export default function Mail() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <LeftPanel onClickFolderName={handleFolderClick} handleCompose={handleCompose} />
+        <LeftPanel />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        {view}
+        <Outlet />
       </Main>
     </Box>
   );

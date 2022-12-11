@@ -1,13 +1,50 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import Mail from './pages/Mail';
 
+import reportWebVitals from './reportWebVitals';
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import ErrorPage from "./pages/error-page";
+import Login from "./pages/Login";
+import MailList from './components/MailList';
+import ViewMail from './components/ViewMail/ViewMail';
+import WriteMail from './components/WriteMail/WriteMail';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Mail />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "MailList/:folderName",
+        element: <MailList />,
+      },
+      {
+        path: "Mail/:mailId",
+        element: <ViewMail />,
+      },
+      {
+        path: "Compose",
+        element: <WriteMail />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+    errorElement: <ErrorPage />,
+  }
+  
+]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
