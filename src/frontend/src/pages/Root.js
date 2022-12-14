@@ -17,12 +17,9 @@ import MailList from '../components/MailList';
 import ViewMail from '../components/ViewMail/ViewMail';
 import WriteMail from '../components/WriteMail/WriteMail';
 import {
-  Outlet,
-  Link,
-  useLoaderData,
-  Form,
-  redirect,
+  Outlet, useParams
 } from "react-router-dom";
+import authService from '../util/authService';
 
 const drawerWidth = 240;
 
@@ -71,10 +68,10 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function Mail() {
+export default function Root() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
-
+  const obj = useParams();
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -82,6 +79,21 @@ export default function Mail() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    console.log(obj)
+  },[obj])
+  //console.log(obj);
+  if(authService.isAuthenticated() == false){
+    //check if we have the auth code in case we were redirected from authorization server
+    
+    localStorage.setItem("authenticated", "yes");
+    authService.redirectToAuthorizationServer();
+  }
+  else{
+    //redirect to inbox mail list which is a child route
+
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>

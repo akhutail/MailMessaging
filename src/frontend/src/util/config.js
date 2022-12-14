@@ -1,13 +1,12 @@
 export const CONFIG = {
-    "TOKEN_ENDPOINT": "https://localhost:9443/oauth2/token",
-    "AUTHORIZE_ENDPOINT": "https://localhost:9443/oauth2/authorize",
+    "TOKEN_ENDPOINT": "https://oauth2.googleapis.com/token",
+    "AUTHORIZE_ENDPOINT": "https://accounts.google.com/o/oauth2/v2/auth",
     "RESPONSE_TYPE": "code",
     "SCOPE": "openid",
-    "REDIRECT_URI": "https://localhost:9000",
-    "CLIENT_ID": "fP11CnMhhaUCiLxTr9FPyVQSDJAa",
-    "CLIENT_SECRET": "1Dhb6PtLo5Us9iBPLsfW83GY28Ua",
+    "REDIRECT_URI": "http://localhost:3000/callback/google",
+    "CLIENT_ID": "841655652099-bq7mbqbdoaq6tqso2bi75lr22mvjjlu3.apps.googleusercontent.com",
     "GRANT_TYPE": "authorization_code",
-    "CLIENT_URL": "https://localhost:9000",
-    "LOGOUT_URL": "https://localhost:9443/oidc/logout",
+    "CLIENT_URL": "https://localhost:3000",
+    "LOGOUT_URL": "https://localhost:3000/logout",
     "COOKIE_PATH": "/"
 };
