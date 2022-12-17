@@ -13,11 +13,13 @@ import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import LeftPanel from '../components/LeftPanel';
+import jwt_decode from "jwt-decode";
+
 import MailList from '../components/MailList';
 import ViewMail from '../components/ViewMail/ViewMail';
 import WriteMail from '../components/WriteMail/WriteMail';
 import {
-  Outlet, useParams
+  Outlet, useNavigate, useParams
 } from "react-router-dom";
 import authService from '../util/authService';
 
@@ -71,7 +73,15 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function Root() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
-  const obj = useParams();
+  //const obj = useParams();
+  const navigate = useNavigate();
+
+
+  const decoded = jwt_decode(localStorage.getItem("token"));
+  const firstName = decoded.given_name;
+  const pictureUrl = decoded.picture;
+  //console.log(firstName+pictureUrl);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -81,20 +91,11 @@ export default function Root() {
   };
 
   useEffect(() => {
-    console.log(obj)
-  },[obj])
-  //console.log(obj);
-  if(authService.isAuthenticated() == false){
-    //check if we have the auth code in case we were redirected from authorization server
-    
-    localStorage.setItem("authenticated", "yes");
-    authService.redirectToAuthorizationServer();
-  }
-  else{
-    //redirect to inbox mail list which is a child route
-
-  }
-
+    if(!authService.isAuthenticated()){
+      //redirect to inbox mail list which is a child route
+      navigate("/Login");
+    }
+  },[]);
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
