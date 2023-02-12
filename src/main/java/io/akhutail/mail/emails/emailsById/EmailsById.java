@@ -3,14 +3,11 @@ package io.akhutail.mail.emails.emailsById;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.CassandraType;
+import org.springframework.data.cassandra.core.mapping.CassandraType.Name;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
-import org.springframework.data.cassandra.core.mapping.CassandraType.Name;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Table(value = "emails_by_id")
 public class EmailsById {

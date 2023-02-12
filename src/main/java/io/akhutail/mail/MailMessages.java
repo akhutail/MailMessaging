@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +19,7 @@ import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolder;
 import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolderRepo;
 import io.akhutail.mail.folders.Folder;
 import io.akhutail.mail.folders.FolderRepository;
+import jakarta.annotation.PostConstruct;
 
 @SpringBootApplication
 public class MailMessages {
