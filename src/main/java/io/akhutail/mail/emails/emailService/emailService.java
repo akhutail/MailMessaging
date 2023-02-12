@@ -2,7 +2,6 @@ package io.akhutail.mail.emails.emailService;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +26,9 @@ public class emailService {
 
         UUID timeUuid = Uuids.timeBased();
         List<String> toUserIdList = email.getTo().stream()
-                                    .map(id -> StringUtils.trimWhitespace(id))
-                                    .filter(id -> StringUtils.hasText(id)).collect(Collectors.toList());
+        		.filter(StringUtils::hasText)
+        		.map(String::strip)
+        		.toList();
        
         String sender = "sender123";
         EmailsByUserFolder sentItemEntry = new EmailsByUserFolder(sender, "Sent", timeUuid, sender,
