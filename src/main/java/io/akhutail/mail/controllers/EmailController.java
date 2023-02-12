@@ -24,15 +24,14 @@ import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolderRepo;
 
 
 @RestController
-@CrossOrigin
 public class EmailController {
 
     @Autowired 
     private EmailsByUserFolderRepo emailsByFolderRepo;
     @Autowired private EmailsRepo emailsRepo;
     @Autowired private emailService emailService;
-    @GetMapping(value = "/emailsByFolder")
     
+    @GetMapping(value = "/emailsByFolder")
     public List<EmailsByUserFolder> getEmailsByFolder(@RequestParam String folderLabel){//@RequestParam(value="userId") String userId
     String userId = "akhutail";
      

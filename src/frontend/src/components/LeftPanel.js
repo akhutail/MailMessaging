@@ -11,12 +11,12 @@ import React, { useEffect, useState } from 'react';
 import { Button } from '@mui/material';
 
 export default function LeftPanel() {
-    const [mailListState, setMailListState] = useState([]);
+    const [mailList, setMailList] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         getFolders().then((data) => {
-            setMailListState(data);
+            setMailList(data);
         })
     }, []);
 
@@ -27,20 +27,27 @@ export default function LeftPanel() {
     return (
     <div sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         <nav aria-label="main mailbox folders">
-        <List>
-            {mailListState.map((elem, index) => (
-            <ListItem disablePadding key={index}>
-                <Link to={`MailList/${elem.label}`}>
-            <ListItemButton >
-                <ListItemIcon>
-                <MailIcon />
-                </ListItemIcon>
-                <ListItemText primary={elem.label} />
-            </ListItemButton> </Link>
-            </ListItem>
-           
-            ))}
-        </List>
+            {mailList ?
+            <List>
+                {mailList.map((elem, index) => (
+                <ListItem disablePadding key={index}>
+                    <Link to={`MailList/${elem.label}`}>
+                <ListItemButton >
+                    <ListItemIcon>
+                    <MailIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={elem.label} />
+                </ListItemButton> </Link>
+                </ListItem>
+            
+                ))} 
+                
+            </List>
+
+        :
+        
+            <div>Error fetching folders</div>
+        }
         <Button onClick={handleCompose}>
             Compose
         </Button>

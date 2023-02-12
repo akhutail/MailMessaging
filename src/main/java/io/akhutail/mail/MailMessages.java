@@ -12,10 +12,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cassandra.CqlSessionBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.datastax.oss.driver.api.core.uuid.Uuids;
-import com.datastax.oss.driver.internal.core.type.codec.TimeUuidCodec;
 
 import io.akhutail.mail.emails.emailsById.EmailsById;
 import io.akhutail.mail.emails.emailsById.EmailsRepo;
@@ -25,7 +23,6 @@ import io.akhutail.mail.folders.Folder;
 import io.akhutail.mail.folders.FolderRepository;
 
 @SpringBootApplication
-@RestController
 public class MailMessages {
 
 	@Autowired FolderRepository folderRepository;

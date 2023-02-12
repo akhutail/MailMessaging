@@ -16,7 +16,6 @@ export default function MailList() {
     //console.log(folderName)
 
     useEffect(() => {
-        console.log()
         getEmailsByFolder(folderName).then((data) => {
             setMails(data);
         })
@@ -29,7 +28,7 @@ export default function MailList() {
     return (
     <Paper sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         <nav aria-label="main mailbox folders">
-        {mails.length ?
+        {mails ?
             <List>
             {mails.map((elem, index) => (
             <ListItem disablePadding key={index}>
@@ -43,7 +42,7 @@ export default function MailList() {
             </ListItem>
             ))}
             </List> :
-            <div>Emtpy!</div>
+            <div>Error fetching mails!</div>
         }
         </nav>
     </Paper>

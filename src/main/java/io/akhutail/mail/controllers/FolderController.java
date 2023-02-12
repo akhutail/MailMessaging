@@ -14,7 +14,7 @@ import io.akhutail.mail.folders.FolderService;
 
 
 @RestController
-@CrossOrigin
+
 public class FolderController {
 
     @Autowired private FolderRepository folderRepository;
