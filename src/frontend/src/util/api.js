@@ -56,7 +56,7 @@ export const getEmail = (id) => {
 
     const data = fetch(`http://localhost:8080/email?mailId=${id}`, {
         headers:{
-            'Authorization': localStorage.getItem('token'),
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             //'Content-Type': 'application/json'
         },
     })
@@ -86,7 +86,7 @@ export const postEmail = (toList, subject, body) => {
             method: 'POST',
             body: JSON.stringify(mail),
             headers:{
-                'Authorization': localStorage.getItem('token'),
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 //'Content-Type': 'application/json'
             },
         },
