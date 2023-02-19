@@ -1,22 +1,20 @@
 package io.akhutail.mail;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-
 import com.datastax.oss.driver.api.core.uuid.Uuids;
-
 import io.akhutail.mail.emails.emailsById.EmailsById;
 import io.akhutail.mail.emails.emailsById.EmailsRepo;
 import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolder;
 import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolderRepo;
 import io.akhutail.mail.folders.Folder;
 import io.akhutail.mail.folders.FolderRepository;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @SpringBootApplication
 public class MailMessages {

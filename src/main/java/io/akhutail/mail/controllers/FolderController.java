@@ -23,8 +23,6 @@ public class FolderController {
         
         
         String userId = "akhutail";
-        List<Folder> userFolders = folderRepository.findAllById(userId);
-
-        return userFolders;
+        return folderRepository.findAllById(userId);
     }
 }

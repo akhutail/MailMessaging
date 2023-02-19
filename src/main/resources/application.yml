@@ -6,7 +6,6 @@ spring:
         jwt:
           issuer-uri: https://accounts.google.com
 
-
   cassandra:
     keyspace-name: main
     schema-action: RECREATE_DROP_UNUSED
@@ -16,3 +15,10 @@ spring:
       connect-timeout: 5s
       init-query-timeout: 5s
     local-datacenter: datacenter1
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+#        /-- CAN SET TO TRACE --/
