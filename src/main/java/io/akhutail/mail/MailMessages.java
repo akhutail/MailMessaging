@@ -1,20 +1,12 @@
 package io.akhutail.mail;
 
-import com.datastax.oss.driver.api.core.uuid.Uuids;
-import io.akhutail.mail.emails.emailsById.EmailsById;
 import io.akhutail.mail.emails.emailsById.EmailsRepo;
-import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolder;
 import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolderRepo;
-import io.akhutail.mail.folders.Folder;
 import io.akhutail.mail.folders.FolderRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @SpringBootApplication
 public class MailMessages {
@@ -28,7 +20,7 @@ public class MailMessages {
 
 	@PostConstruct
 	public void init(){
-		folderRepository.save(new Folder("akhutail", "Inbox", "blue"));
+		/*folderRepository.save(new Folder("akhutail", "Inbox", "blue"));
 		folderRepository.save(new Folder("akhutail", "Important", "black"));
 		folderRepository.save(new Folder("akhutail", "Sent", "orange"));
 
@@ -49,5 +41,7 @@ public class MailMessages {
 		"2This is the mail bodyasdl;fj, klsdfjasjflkas , sadlkfjlkasdjf ,m,asdkjflaskdjfaldf, aklsdflkasdjf "));
 		emailsRepo.save(new EmailsById(id3, "sender3",  listOfIds, "subject3", 
 		"3This is the mail bodyasdl;fj, klsdfjasjflkas , sadlkfjlkasdjf ,m,asdkjflaskdjfaldf, aklsdflkasdjf "));
-	}	
+
+		 */
+	}
 }

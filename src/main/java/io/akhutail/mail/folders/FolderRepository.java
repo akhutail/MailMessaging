@@ -1,9 +1,11 @@
 package io.akhutail.mail.folders;
 
+import org.springframework.data.cassandra.repository.MapIdCassandraRepository;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-import org.springframework.data.cassandra.repository.CassandraRepository;
-
-public interface FolderRepository extends CassandraRepository<Folder, String>{
-    List<Folder> findAllById(String id);
+@Repository
+public interface FolderRepository extends MapIdCassandraRepository<FolderByUser> {
+    List<FolderByUser> findAllById(String id);
 }

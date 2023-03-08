@@ -2,12 +2,12 @@ package io.akhutail.mail.folders;
 
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.CassandraType;
+import org.springframework.data.cassandra.core.mapping.CassandraType.Name;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
-import org.springframework.data.cassandra.core.mapping.CassandraType.Name;
 
 @Table(value = "folders_by_user")
-public class Folder {
+public class FolderByUser {
     @PrimaryKeyColumn(name = "user_id", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
     private String id;
 
@@ -17,9 +17,9 @@ public class Folder {
     @CassandraType(type = Name.TEXT)
     private String color;
 
-    public Folder(){}
+    public FolderByUser(){}
 
-    public Folder(String id, String label, String color) {
+    public FolderByUser(String id, String label, String color) {
         this.id = id;
         this.label = label;
         this.color = color;
