@@ -5,7 +5,7 @@ import {CONFIG} from './config';
 const authService = {
     
     isAuthenticated : () => {
-        return localStorage.getItem("token") != null
+        return localStorage.getItem("token") !== undefined
             && new Date(localStorage.getItem("expiration")*1000) > Date.now() ;
     },
 

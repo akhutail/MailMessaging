@@ -1,6 +1,17 @@
+export const getProfileName = () => {
+    return localStorage.getItem("SuperMailProfileName");    
+}
+
+export const getProfilePicture = () => {
+    //console.log(localStorage.getItem("SuperMailProfilePicture"))
+    return localStorage.getItem("SuperMailProfilePicture");    
+}
+
+export const getProfileEmail = () => {
+    return localStorage.getItem("SuperMailProfileEmail");    
+}
+
 export const getFolders = () => {
-    const userId = "akhutail";
-    console.log(localStorage.getItem('token'));
     const data = fetch(`http://localhost:8080/folders`, {
         headers:{
             'Authorization': `Bearer ${localStorage.getItem('token')}`,

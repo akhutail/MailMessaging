@@ -7,7 +7,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Paper from '@mui/material/Paper';
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import {getEmailsByFolder} from '../util/api';
+import {getEmailsByFolder} from '../../util/api';
+import styles from './styles.module.sass';
 
 export default function MailList() {
     const [mails, setMails] = useState([]);
@@ -26,8 +27,8 @@ export default function MailList() {
     };
 
     return (
-    <Paper sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        <nav aria-label="main mailbox folders">
+    <div className={styles.top}>
+        
         {mails ?
             <List>
             {mails.map((elem, index) => (
@@ -44,7 +45,7 @@ export default function MailList() {
             </List> :
             <div>Error fetching mails!</div>
         }
-        </nav>
-    </Paper>
+        
+    </div>
     );
 }

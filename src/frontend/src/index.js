@@ -1,23 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import Mail from './pages/Root';
+import RootWithLeftPanel from './pages/Root';
 import AuthCallback from './pages/AuthCallback'
 import {
   createBrowserRouter,
   RouterProvider
 } from "react-router-dom";
 import MailList from './components/MailList';
-import ViewMail from './components/ViewMail/ViewMail';
+import ViewMail from './components/ViewMail';
 import WriteMail from './components/WriteMail/WriteMail';
 import ErrorPage from "./pages/error-page";
 import Login from "./pages/Login";
 import reportWebVitals from './reportWebVitals';
 
-const router = createBrowserRouter([
+const router = createBrowserRouter([  
   {
     path: "/",
-    element: <Mail />,
+    element: <RootWithLeftPanel />,
     errorElement: <ErrorPage />,
     children: [
       {

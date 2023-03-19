@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { postEmail } from '../../util/api';
-import './WriteMail.css';
+import styles from './styles.module.sass';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -30,22 +30,22 @@ export default function WriteMail({handleAfterSent}) {
         navigate("/MailList/Sent")
     }
     return (
-    <div className="container" >
+    <div className={styles.container} >
         
 
         <div>
             
-            To<input className='field' type="text" 
+            To<input className={styles.field} type="text" 
             onChange={(e)=>handleToListChange(e.target.value)} value={toList} /> 
 
             Subject
-            <input className='field' type="text" 
+            <input className={styles.field} type="text" 
             onChange={(e)=>handleSubjectChange(e.target.value)} value={subject} /> 
 
             
         </div>
         Body
-        <input className='text' type="text" 
+        <input className={styles.text} type="text" 
             onChange={(e)=>handleTextChange(e.target.value)} value={text} /> 
             
 
