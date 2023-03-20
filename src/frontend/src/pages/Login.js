@@ -17,7 +17,9 @@ export default function Login() {
         const exp = decoded.exp;
         localStorage.setItem("token", response.credential);
         localStorage.setItem("expiration", exp);
-
+        localStorage.setItem("SuperMailProfileName", decoded.name);
+        localStorage.setItem("SuperMailProfilePicture", decoded.picture);
+        localStorage.setItem("SuperMailProfileEmail", decoded.email);
         navigate("/MailList/Inbox");
     }
 

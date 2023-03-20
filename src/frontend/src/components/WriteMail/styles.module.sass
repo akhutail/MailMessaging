@@ -1,15 +1,40 @@
-.container
+.root
     display: flex
+    height: 85vh //todo instead it should expand/shrink  
     flex-direction: column
     padding: 12px
 
-.field
-    border: 1px solid grey
-    padding: 0px 5px
-    height: 30px
+.fieldContainer
     display: flex
+    border: 2px solid grey
+    border-radius: 6px
+    align-items: center
+    padding: 6px
+    margin-bottom: 6px
 
+.field
+    border: none
+    margin-left: 6px
+
+.fieldName
+    color: grey
 
 .text
-    border: 1px solid grey
-    
+    border: 2px solid grey
+    border-radius: 6px
+    padding: 6px
+    flex-grow: 1
+
+.sendButton
+    background: #011fc2
+    color: white
+    border: none
+    border-radius: 6px
+    margin-top: 16px
+    padding: 8px 32px
+    align-self: flex-end
+    &:hover
+        cursor: pointer
+
+
+

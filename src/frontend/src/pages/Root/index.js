@@ -22,28 +22,27 @@ export default function Root() {
     try{
       if (!authService.isAuthenticated()) {
         //redirect to inbox mail list which is a child route
-        console.log('adsfadf')
+        localStorage.removeItem("token");
+        localStorage.removeItem("SuperMailProfileName");
+        localStorage.removeItem("SuperMailProfilePicture");
+        localStorage.removeItem("SuperMailProfileEmail");
         navigate('/Login');
       }
-      const decoded = jwt_decode(localStorage.getItem("token"));
-      localStorage.setItem("SuperMailProfileName", decoded.name);
-      localStorage.setItem("SuperMailProfilePicture", decoded.picture);
-      localStorage.setItem("SuperMailProfileEmail", decoded.email);
-    } catch (err) {
       
-      if( err.name === 'InvalidTokenError') {
-        localStorage.removeItem('token');
-        navigate('/Login');
-      }
-      console.log(err.name);
+    } catch (err) {
+      console.log(err);
+      
     }
+      
     
   }, []);
 
   return (
     <div className={styles.root}>
       <LeftPanel />
-      <Outlet  />
+      <div className={styles.outlet}>
+        <Outlet />
+      </div>
     </div>
   );
 }
