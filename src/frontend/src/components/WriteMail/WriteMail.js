@@ -31,7 +31,7 @@ export default function WriteMail() {
         else if (toList.length === 0) {
             window.alert('You forgot to add the receiver');
         } else {
-            postEmail(toList, subject, text).then( () =>
+            postEmail(toListStringToArray(toList), subject, text).then( () =>
                 navigate("/MailList/Sent")
             );
         }
@@ -58,4 +58,9 @@ export default function WriteMail() {
 
         </div>
     );
+}
+
+
+const toListStringToArray = (toList) => {
+    return toList.split(';');
 }
