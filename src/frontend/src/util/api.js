@@ -63,9 +63,9 @@ export const getEmailsByFolder = (label) => {
     return data;
 }
 
-export const getEmail = (id) => {
+export const getEmail = (id, folder) => {
 
-    const data = fetch(`http://localhost:8080/email?mailId=${id}`, {
+    const data = fetch(`http://localhost:8080/email?mailId=${id}&folder=${folder}`, {
         headers:{
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
             //'Content-Type': 'application/json'

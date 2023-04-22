@@ -4,13 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.akhutail.mail.emails.emailService.emailService;
 import io.akhutail.mail.emails.emailsById.EmailsById;
 import io.akhutail.mail.emails.emailsById.EmailsRepo;
-import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolder;
 import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolderRepo;
+import io.akhutail.mail.folders.FolderService;
 import io.akhutail.mail.util.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,12 +19,14 @@ public class EmailController {
     private EmailsByUserFolderRepo emailsByFolderRepo;
     @Autowired private EmailsRepo emailsRepo;
     @Autowired private emailService emailService;
-    
+    @Autowired private FolderService folderService;
     @GetMapping(value = "/emailsByFolder")
-    public List<EmailsByUserFolder> getEmailsByFolder(@RequestParam String folderLabel){//@RequestParam(value="userId") String userId
+    public EmailsByFolderResponse getEmailsByFolder(@RequestParam String folderLabel){//@RequestParam(value="userId") String userId
         String userId = CommonUtils.getAuthenticatedEmail();
         if(userId != null && folderLabel != null){
-            return emailsByFolderRepo.findAllByUserIdAndLabel(userId, folderLabel);
+            EmailsByFolderResponse response = new EmailsByFolderResponse(emailsByFolderRepo.findAllByUserIdAndLabel(userId, folderLabel),
+                    folderService.getNumRead(userId, folderLabel));
+            return response;
         }
 
         return null;
@@ -33,11 +34,8 @@ public class EmailController {
 
     @GetMapping(value = "/email")
     
-    public EmailsById getEmail(@RequestParam UUID mailId){
-        if(mailId != null){
-            return emailsRepo.findById(mailId);
-        }
-        return null;
+    public EmailsById getEmail(@RequestParam UUID mailId, @RequestParam String folder){
+        return emailService.setReadAndGetMail(mailId, folder);
     }
 
     @PostMapping(value = "/email")
@@ -57,7 +55,7 @@ public class EmailController {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
         
         return mailID;
     }

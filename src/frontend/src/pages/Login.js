@@ -1,6 +1,6 @@
 import authService from "../util/authService"
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import {useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 import jwt_decode from "jwt-decode";
 
 
@@ -34,10 +34,10 @@ export default function Login() {
                 client_id: "841655652099-bq7mbqbdoaq6tqso2bi75lr22mvjjlu3.apps.googleusercontent.com",
                 callback: handleCredentialResponse
               });
-            /*window.google.accounts.id.renderButton(
+            window.google.accounts.id.renderButton(
                 document.getElementById("googleButtonDiv"),
                 { theme: "outline", size: "large" }  // customization attributes
-              );*/
+              );
            google.accounts.id.prompt(); // also display the One Tap dialog
         }
     },[]);

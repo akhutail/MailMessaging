@@ -1,12 +1,12 @@
 package io.akhutail.mail.emails.emailsByUserFolder;
 
-import java.util.UUID;
-
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.CassandraType;
 import org.springframework.data.cassandra.core.mapping.CassandraType.Name;
 import org.springframework.data.cassandra.core.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.core.mapping.Table;
+
+import java.util.UUID;
 
 @Table(value = "emails_by_user_folder")
 public class EmailsByUserFolder {
@@ -16,18 +16,16 @@ public class EmailsByUserFolder {
     @PrimaryKeyColumn(name = "label", ordinal = 1, type = PrimaryKeyType.PARTITIONED)
     private String label;
 
-    @PrimaryKeyColumn(name = "id", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
+    @PrimaryKeyColumn(name = "mail_id", ordinal = 2, type = PrimaryKeyType.CLUSTERED)
     @CassandraType(type = CassandraType.Name.TIMEUUID)
     private UUID id;
-    
-    @PrimaryKeyColumn(name = "from", ordinal = 3, type = PrimaryKeyType.CLUSTERED)
+
     @CassandraType(type = Name.TEXT)
     private String from;
 
     @CassandraType(type = Name.TEXT)
     private String subject;
 
-    @PrimaryKeyColumn(name = "is_read", ordinal = 4, type = PrimaryKeyType.CLUSTERED)
     @CassandraType(type = Name.BOOLEAN)
     private Boolean isRead;
 

@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface FolderRepository extends MapIdCassandraRepository<FolderByUser> {
     List<FolderByUser> findAllById(String id);
+
+
 }

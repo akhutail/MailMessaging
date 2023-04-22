@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import RootWithLeftPanel from './pages/Root';
 import AuthCallback from './pages/AuthCallback'
-import {
-  createBrowserRouter,
-  RouterProvider
-} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import MailList from './components/MailList';
 import ViewMail from './components/ViewMail';
 import WriteMail from './components/WriteMail/WriteMail';
@@ -25,7 +22,7 @@ const router = createBrowserRouter([
         element: <MailList />,
       },
       {
-        path: "Mail/:mailId",
+        path: "Mail/:folderName/:mailId",
         element: <ViewMail />,
       },
       {

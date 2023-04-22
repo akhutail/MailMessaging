@@ -5,6 +5,8 @@ import io.akhutail.mail.emails.emailsById.EmailsById;
 import io.akhutail.mail.emails.emailsById.EmailsRepo;
 import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolder;
 import io.akhutail.mail.emails.emailsByUserFolder.EmailsByUserFolderRepo;
+import io.akhutail.mail.folders.FolderService;
+import io.akhutail.mail.util.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -19,7 +21,7 @@ public class  emailService {
 
     @Autowired private EmailsByUserFolderRepo emailsByUserFolderRepo;
     
-
+    @Autowired private FolderService folderService;
     public UUID sendEmail(EmailsById email) {
 
         UUID timeUuid = Uuids.timeBased();
@@ -30,7 +32,7 @@ public class  emailService {
        
         String senderEmail = email.getFrom();
         EmailsByUserFolder sentItemEntry = new EmailsByUserFolder(senderEmail, "Sent", timeUuid, senderEmail,
-                                                                  email.getSubject(), true);
+                                                                  email.getSubject(), false);
 
         // adding to Sent Folder of sender
         
@@ -53,5 +55,23 @@ public class  emailService {
         emailsRepo.save(email);
 
         return timeUuid;
+    }
+
+    private EmailsById getMail(UUID mailId) {
+        // mark it read
+        //emailsByUserFolderRepo.save();
+
+
+        return emailsRepo.findById(mailId);
+    }
+
+    public EmailsById setReadAndGetMail(UUID mailId, String folder) {
+        if (!emailsByUserFolderRepo.getIsReadByUserFolderEmail(CommonUtils.getAuthenticatedEmail(), folder, mailId)){
+            folderService.updateStats(folder);
+            System.out.println(emailsByUserFolderRepo.setReadForUserFolderMail(CommonUtils.getAuthenticatedEmail(), folder, mailId));
+        }
+
+        EmailsById ans = emailsRepo.findById(mailId);
+        return ans;
     }
 }
