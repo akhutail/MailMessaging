@@ -26,15 +26,22 @@ public class EmailsByUserFolder {
     @CassandraType(type = Name.TEXT)
     private String subject;
 
+    @CassandraType(type = Name.TEXT)
+    private String bodyBrief;
+
     @CassandraType(type = Name.BOOLEAN)
     private Boolean isRead;
 
-    public EmailsByUserFolder(String userId, String label, UUID id, String from, String subject, Boolean isRead) {
+
+
+
+    public EmailsByUserFolder(String userId, String label, UUID id, String from, String subject, String bodyBrief, Boolean isRead) {
         this.userId = userId;
         this.label = label;
         this.id = id;
         this.from = from;
         this.subject = subject;
+        this.bodyBrief = bodyBrief;
         this.isRead = isRead;
     }
 
@@ -85,5 +92,13 @@ public class EmailsByUserFolder {
     public void setIsRead(Boolean isRead) {
         this.isRead = isRead;
     }
+    public String getPrefix() {
+        return bodyBrief;
+    }
+
+    public void setPrefix(String prefix) {
+        this.bodyBrief = prefix;
+    }
+
     
 }

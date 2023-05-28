@@ -32,7 +32,7 @@ public class  emailService {
        
         String senderEmail = email.getFrom();
         EmailsByUserFolder sentItemEntry = new EmailsByUserFolder(senderEmail, "Sent", timeUuid, senderEmail,
-                                                                  email.getSubject(), false);
+                                                                  email.getSubject(), CommonUtils.getBodyBrief(email.getBody()), false);
 
         // adding to Sent Folder of sender
         
@@ -57,13 +57,6 @@ public class  emailService {
         return timeUuid;
     }
 
-    private EmailsById getMail(UUID mailId) {
-        // mark it read
-        //emailsByUserFolderRepo.save();
-
-
-        return emailsRepo.findById(mailId);
-    }
 
     public EmailsById setReadAndGetMail(UUID mailId, String folder) {
         if (!emailsByUserFolderRepo.getIsReadByUserFolderEmail(CommonUtils.getAuthenticatedEmail(), folder, mailId)){
@@ -71,7 +64,6 @@ public class  emailService {
             System.out.println(emailsByUserFolderRepo.setReadForUserFolderMail(CommonUtils.getAuthenticatedEmail(), folder, mailId));
         }
 
-        EmailsById ans = emailsRepo.findById(mailId);
-        return ans;
+        return emailsRepo.findById(mailId);
     }
 }

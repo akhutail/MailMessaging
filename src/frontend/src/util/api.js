@@ -54,7 +54,7 @@ export const getEmailsByFolder = (label) => {
             }
         })
         .then((data) => {
-            //console.log(data);
+            console.log(data);
             return data;
         }).catch(err => {
             console.log("error api: "+ err);

@@ -10,7 +10,6 @@ export default function ViewMail() {
     useEffect(() => {
         getEmail(mailId, folderName).then((data) => {
             setMailData(data);
-            console.log(data)
         })
     }, []);
 
