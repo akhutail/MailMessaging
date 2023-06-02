@@ -20,10 +20,12 @@ const router = createBrowserRouter([
       {
         path: "MailList/:folderName",
         element: <MailList />,
-      },
-      {
-        path: "Mail/:folderName/:mailId",
-        element: <ViewMail />,
+        children : [
+          {
+            path: ":mailId",
+            element: <ViewMail />,
+          }
+        ]
       },
       {
         path: "Compose",

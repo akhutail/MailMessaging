@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {getEmail} from '../../util/api';
+import { getTimeOrDate } from '../../util/commonFunctions';
 import styles from './styles.module.sass';
 
 export default function ViewMail() {
@@ -11,25 +12,26 @@ export default function ViewMail() {
         getEmail(mailId, folderName).then((data) => {
             setMailData(data);
         })
-    }, []);
+    }, [mailId]);
 
     return (
-        <div className={styles.top} >
+        <div className={styles.root} >
 
-            <div className='field'>
-                {mailData.from === undefined ? null : mailData.from}
+            <div className={styles.time}>
+                {mailData.from === undefined ? null : getTimeOrDate(mailData.id)}
             </div>
 
-            <div className='field'>
-                {mailData.to === undefined ? null : mailData.to}
+            <div className={styles.subject}>
+                {mailData.from === undefined ? null : mailData.subject}
             </div>
 
-            <div className='field'>
-                {mailData.subject === undefined ? null : mailData.subject}
+            <div className={styles.from}>
+                {mailData.to === undefined ? null : folderName === 'Sent' ? mailData.to : mailData.from}
             </div>
 
+            <div className={styles.divider}/>
 
-            <div className='text'>
+            <div className={styles.body}>
                 {mailData.body === undefined ? null : mailData.body}
             </div>
 
