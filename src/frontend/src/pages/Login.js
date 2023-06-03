@@ -1,15 +1,12 @@
 import authService from "../util/authService"
-import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import jwt_decode from "jwt-decode";
 
 
 export default function Login() {
     const navigate = useNavigate();
-
-    const initiateLogin = () => {
-        authService.redirectToAuthorizationServer();
-    }
+    
 
     function handleCredentialResponse(response) {
         //console.log("Encoded JWT ID token: " + response.credential);
@@ -24,27 +21,30 @@ export default function Login() {
     }
 
     useEffect(() => {
-        if (authService.isAuthenticated()){
-            
+        if (authService.isAuthenticated()) {
+
             navigate("/MailList/Inbox");
         }
-        else{
+        else {
             /* global google */
-            window.google.accounts.id.initialize({
-                client_id: "841655652099-bq7mbqbdoaq6tqso2bi75lr22mvjjlu3.apps.googleusercontent.com",
-                callback: handleCredentialResponse
-              });
-            window.google.accounts.id.renderButton(
-                document.getElementById("googleButtonDiv"),
-                { theme: "outline", size: "large" }  // customization attributes
-              );
-           google.accounts.id.prompt(); // also display the One Tap dialog
+            window.onload = () => {
+                console.log(google)
+                window.google.accounts.id.initialize({
+                    client_id: "841655652099-bq7mbqbdoaq6tqso2bi75lr22mvjjlu3.apps.googleusercontent.com",
+                    callback: handleCredentialResponse
+                });
+                window.google.accounts.id.renderButton(
+                    document.getElementById("googleButtonDiv"),
+                    { theme: "outline", size: "large" }  // customization attributes
+                );
+                window.google.accounts.id.prompt(); // also display the One Tap dialog
+            }
         }
-    },[]);
+    }, []);
 
     return (
-    <div id="error-page">
-        <div id="googleButtonDiv"></div> 
-    </div>
+        <div id="error-page">
+            <div id="googleButtonDiv"></div>
+        </div>
     );
 }
