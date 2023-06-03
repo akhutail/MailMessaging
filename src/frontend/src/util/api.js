@@ -54,7 +54,6 @@ export const getEmailsByFolder = (label) => {
             }
         })
         .then((data) => {
-            console.log(data);
             return data;
         }).catch(err => {
             console.log("error api: "+ err);
@@ -90,7 +89,7 @@ export const getEmail = (id, folder) => {
 }
 
 export const postEmail = (toList, subject, body) => {
-    console.log(toList);
+    //console.log(toList);
     //todo implement actual list of Tos
     const mail = {"to": toList, subject, body};
     const response = fetch(`http://localhost:8080/email`, {
@@ -114,4 +113,28 @@ export const postEmail = (toList, subject, body) => {
         });
     
     return response;
+}
+
+export const deleteMails = (mailIdArray) => {
+    const deleted = fetch(`http://localhost:8080/email`, {
+            method: 'DELETE',
+            body: JSON.stringify(mailIdArray),
+            headers:{
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+        },
+        )
+        .then((response) => {
+            console.log(response)
+            if(response.ok){
+                return response.json();
+            }
+            else {
+                throw Error(response.status)
+            }
+        }).catch(err => {
+            console.log("error api: "+ err);
+        });
+    
+    return deleted;
 }
