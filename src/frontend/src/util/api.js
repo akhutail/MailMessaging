@@ -39,7 +39,7 @@ export const getFolders = () => {
 
 export const getEmailsByFolder = (label) => {
 
-    const data = fetch(`http://localhost:8080/emailsByFolder?folderLabel=${label}`,{
+    const mailsPromise = fetch(`http://localhost:8080/emailsByFolder?folderLabel=${label}`,{
         headers:{
             'Authorization': `Bearer ${localStorage.getItem('token')}`,
             //'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ export const getEmailsByFolder = (label) => {
                 return response.json();
             }
             else {
-                throw Error(data.status)
+                throw Error(response.status)
             }
         })
         .then((data) => {
@@ -59,7 +59,7 @@ export const getEmailsByFolder = (label) => {
             console.log("error api: "+ err);
         });
     
-    return data;
+    return mailsPromise;
 }
 
 export const getEmail = (id, folder) => {
@@ -92,7 +92,7 @@ export const postEmail = (toList, subject, body) => {
     //console.log(toList);
     //todo implement actual list of Tos
     const mail = {"to": toList, subject, body};
-    const response = fetch(`http://localhost:8080/email`, {
+    const responsePromise = fetch(`http://localhost:8080/email`, {
             method: 'POST',
             body: JSON.stringify(mail),
             headers:{
@@ -111,29 +111,33 @@ export const postEmail = (toList, subject, body) => {
         }).catch(err => {
             console.log("error api: "+ err);
         });
-    
-    return response;
+    return responsePromise;
 }
 
-export const deleteMails = (mailIdArray) => {
+export const deleteMails = (mailIdArray, folderName) => {
     const deleted = fetch(`http://localhost:8080/email`, {
             method: 'DELETE',
-            body: JSON.stringify(mailIdArray),
+            body: JSON.stringify
+            ({
+                'folderName': folderName,
+                'mailIds': mailIdArray
+            }),
             headers:{
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
             },
         },
         )
         .then((response) => {
-            console.log(response)
+            
             if(response.ok){
-                return response.json();
+                return true;
             }
             else {
-                throw Error(response.status)
+                throw Error(response.status);
             }
         }).catch(err => {
-            console.log("error api: "+ err);
+            console.log('error api: '+ err);
         });
     
     return deleted;

@@ -15,17 +15,23 @@ export default function MailList() {
     const { folderName, mailId } = useParams();
     const navigate = useNavigate();
 
-    useEffect(() => {
+    const initializeMailList = () => {
         getEmailsByFolder(folderName).then((data) => {
-            //console.log(data);
+            console.log(data);
             setMails(data.emails);
             setNumRead(data.numRead);
 
             const checkedStateMap = new Map();
             data.emails.forEach(email => checkedStateMap.set(email.id, false));
             setCheckedState(checkedStateMap);
+            setSelectedCount(0);
         })
+    }
+
+    useEffect(() => {
+        initializeMailList()
     }, [folderName]);
+
 
     const handleViewMail = (mailId) => {
         navigate(`/MailList/${folderName}/${mailId}`);
@@ -54,7 +60,19 @@ export default function MailList() {
                 mailsToDelete.push(id);
             }
         });
-        deleteMails(mailsToDelete);
+        if (selectedCount === 0){
+            return;
+        }
+        else{
+            deleteMails(mailsToDelete, folderName).then(
+                (wasSuccessful) => {
+                    if(wasSuccessful){
+                        initializeMailList();
+                    }
+                }
+            );
+        }
+        
     }
 
     return (
@@ -65,8 +83,8 @@ export default function MailList() {
                     <div className={styles.folderTitle}>{folderName}</div>
                     <div className={styles.folderStats}>{mails.length} Messages :  {mails.length - numRead} Unread</div>
                     </div>
-                    <IconButton onClick={handleDelete}>
-                        <DeleteRoundedIcon  className={styles.deleteButton} style={ selectedCount === 0 || mailId !== undefined ? {color: 'grey'} : {color : 'red'} }/>
+                    <IconButton disabled={selectedCount === 0} onClick={handleDelete}>
+                        <DeleteRoundedIcon   className={styles.deleteButton} style={ selectedCount === 0 || mailId !== undefined ? {color: 'grey'} : {color : 'red'} }/>
                     </IconButton>
                     
                 </div>

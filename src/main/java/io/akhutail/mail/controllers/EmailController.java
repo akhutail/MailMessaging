@@ -1,6 +1,7 @@
 package io.akhutail.mail.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.akhutail.mail.controllers.requestbody.DeleteMailRequestBody;
 import io.akhutail.mail.emails.emailService.emailService;
 import io.akhutail.mail.emails.emailsById.EmailsById;
 import io.akhutail.mail.emails.emailsById.EmailsRepo;
@@ -10,6 +11,7 @@ import io.akhutail.mail.util.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -58,5 +60,12 @@ public class EmailController {
 
         
         return mailID;
+    }
+
+    @DeleteMapping(value = "/email")
+
+    public void deleteEmail(@RequestBody DeleteMailRequestBody request) {
+        System.out.println(request);
+        emailService.deleteMails(request);
     }
 }

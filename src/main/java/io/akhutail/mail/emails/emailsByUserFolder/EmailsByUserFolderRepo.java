@@ -16,4 +16,7 @@ public interface EmailsByUserFolderRepo extends MapIdCassandraRepository<EmailsB
 
     @Query("select isread from emails_by_user_folder where user_id = ?0 and label = ?1 and mail_id = ?2")
     boolean getIsReadByUserFolderEmail(String userId, String folder, UUID mailId);
+
+    @Query("select count(*) from emails_by_user_folder where user_id=?0 and label=?1 and mail_id in ?2 and isread = true allow filtering")
+    int getNumMailsRead(String authenticatedEmail, String folder, List<UUID> mailIds);
 }

@@ -1,5 +1,8 @@
 package io.akhutail.mail.folders;
 
+import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.core.cql.SimpleStatement;
+import com.datastax.oss.driver.api.querybuilder.QueryBuilder;
 import io.akhutail.mail.folders.stats.StatsRepo;
 import io.akhutail.mail.util.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ public class FolderService {
 
     @Autowired private FolderRepository folderRepository;
     @Autowired private StatsRepo folderStatsRepo;
+    @Autowired private CqlSession cqlSession;
     public List<FolderByUser> getFolders(String userId) {
 
         List<FolderByUser> folders = folderRepository.findAllById(userId);
@@ -64,5 +68,13 @@ public class FolderService {
 
     public void updateStats(String folder) {
         System.out.println(folderStatsRepo.incrementNumReadByUserIdAndLabel(CommonUtils.getAuthenticatedEmail(), folder));
+    }
+
+    public void updateStats(String folder, int count){
+         cqlSession.execute(QueryBuilder.update("main", "folder_stats")
+                .decrement("numread", QueryBuilder.literal(count))
+                .whereColumn("user_id").isEqualTo(QueryBuilder.literal(CommonUtils.getAuthenticatedEmail()))
+                .whereColumn("label").isEqualTo(QueryBuilder.literal(folder))
+                .build());
     }
 }
